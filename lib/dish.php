@@ -16,34 +16,40 @@ class dish {
         $this-> kitchentype = new kitchentype($connection);
     }
 
-    public function selectDish($id) {
-        $sql = "SELECT * FROM dish WHERE id = $id";
-        $result = mysqli_query($this->connection, $sql);
-        $return = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    public function selectDish($ids) {
+        $dish_array = [];
 
-        $user = $this->selectUser($return["user_id"]);
-        $ingredients = $this->ingredient->selectIngredient($id);
-        $totalCalories = $this->calcCalories($ingredients);
-        $totalPrice = $this->calcPrice($ingredients);
-        $rating = $this->selectRating($id);
-        $steps = $this->selectSteps($id);  
-        $remarks = $this->selectRemarks($id);
-        $kitchen = $this->selectKitchen($return);
-        $type = $this->selectType($return);
-        $favorites = $this->determineFavorite($id);
-        $dish_array[] = [
-            "dish" => $return, 
-            "user" => $user, 
-            "ingredients" => $ingredients,
-            "total_calories" => $totalCalories,
-            "total_price" => $totalPrice,
-            "rating" => $rating,
-            "steps" => $steps,
-            "remarks" => $remarks,
-            "favorites" => $favorites,
-            "kitchen" => $kitchen,
-            "type" => $type
-        ];
+        foreach($ids as $id) {
+            $sql = "SELECT * FROM dish WHERE id = $id";
+            $result = mysqli_query($this->connection, $sql);
+            $return = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+            if($return) {
+                $user = $this->selectUser($return["user_id"]);
+                $ingredients = $this->ingredient->selectIngredient($id);
+                $totalCalories = $this->calcCalories($ingredients);
+                $totalPrice = $this->calcPrice($ingredients);
+                $rating = $this->selectRating($id);
+                $steps = $this->selectSteps($id);  
+                $remarks = $this->selectRemarks($id);
+                $kitchen = $this->selectKitchen($return);
+                $type = $this->selectType($return);
+                $favorites = $this->determineFavorite($id);
+                $dish_array[] = [
+                    "dish" => $return, 
+                    "user" => $user, 
+                    "ingredients" => $ingredients,
+                    "total_calories" => $totalCalories,
+                    "total_price" => $totalPrice,
+                    "rating" => $rating,
+                    "steps" => $steps,
+                    "remarks" => $remarks,
+                    "favorites" => $favorites,
+                    "kitchen" => $kitchen,
+                    "type" => $type
+                ];
+            }
+        }
         return($dish_array);
     }
 
