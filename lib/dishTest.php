@@ -1,5 +1,5 @@
 <?php
-class dishTest {
+class dish {
     private $connection;
     private $ingredient;
     private $user;
@@ -16,40 +16,39 @@ class dishTest {
         $this-> kitchentype = new kitchentype($connection);
     }
 
-    public function selectDish($id = null) {
-        $sql = "SELECT * FROM dish";
+    public function selectDish($ids = null) {
         $dish_array = [];
-        
-        if($id){
-            $sql .= " WHERE id = $id";
-        }
 
-        $result = mysqli_query($this->connection, $sql);
+        foreach($ids as $id) {
+            $sql = "SELECT * FROM dish WHERE id = $id";
+            $result = mysqli_query($this->connection, $sql);
+            $return = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-            $user = $this->selectUser($row["user_id"]);
-            $ingredients = $this->selectIngredient($row["id"]);
-            $totalCalories = $this->calcCalories($ingredients);
-            $totalPrice = $this->calcPrice($ingredients);
-            $rating = $this->selectRating($row["id"]);
-            $steps = $this->selectSteps($row["id"]);  
-            $remarks = $this->selectRemarks($row["id"]);
-            $kitchen = $this->selectKitchen($row["kitchen_id"]);
-            $type = $this->selectType($row["type_id"]);
-            $favorites = $this->determineFavorite($row["id"]);
-            $dish_array[] = [
-                "dish" => $row, 
-                "user" => $user, 
-                "ingredients" => $ingredients,
-                "total_calories" => $totalCalories,
-                "total_price" => $totalPrice,
-                "rating" => $rating,
-                "steps" => $steps,
-                "remarks" => $remarks,
-                "favorites" => $favorites,
-                "kitchen" => $kitchen,
-                "type" => $type
-            ];
+            if($return) {
+                $user = $this->selectUser($return["user_id"]);
+                $ingredients = $this->ingredient->selectIngredient($id);
+                $totalCalories = $this->calcCalories($ingredients);
+                $totalPrice = $this->calcPrice($ingredients);
+                $rating = $this->selectRating($id);
+                $steps = $this->selectSteps($id);  
+                $remarks = $this->selectRemarks($id);
+                $kitchen = $this->selectKitchen($return);
+                $type = $this->selectType($return);
+                $favorites = $this->determineFavorite($id);
+                $dish_array[] = [
+                    "dish" => $return, 
+                    "user" => $user, 
+                    "ingredients" => $ingredients,
+                    "total_calories" => $totalCalories,
+                    "total_price" => $totalPrice,
+                    "rating" => $rating,
+                    "steps" => $steps,
+                    "remarks" => $remarks,
+                    "favorites" => $favorites,
+                    "kitchen" => $kitchen,
+                    "type" => $type
+                ];
+            }
         }
         return($dish_array);
     }
@@ -67,14 +66,6 @@ class dishTest {
     private function selectArticle($article_id) {
         $article = $this->article->selectArticle($article_id);
        return($article);
-    }
-
-    private function selectDishInfo($dish_id){
-        return($this->dish_info->selectDishInfo($dish_id));
-    }
-
-    private function selectKitchenType($dish_id) {
-        return($this->kitchentype->selectKitchenType($dish_id));
     }
 
     private function calcCalories($ingredients) {
@@ -102,7 +93,7 @@ class dishTest {
     }
 
     private function selectRating($dish_id) {
-       $rating = $this->selectDishInfo($dish_id);
+       $rating = $this->dish_info->selectDishInfo($dish_id);
         foreach($rating as $key => $item) {
             if ($item['record_type'] === 'B' || $item['record_type'] === 'O' || $item['record_type'] === 'F') {
                 unset($rating[$key]);
@@ -112,7 +103,7 @@ class dishTest {
     }
 
     private function selectSteps($dish_id) {
-        $steps = $this->selectDishInfo($dish_id);
+        $steps = $this->dish_info->selectDishInfo($dish_id);
         foreach($steps as $key => $item) {
             if ($item['record_type'] === 'W' || $item['record_type'] === 'O' || $item['record_type'] === 'F') {
                 unset($steps[$key]);
@@ -142,14 +133,14 @@ class dishTest {
     }
 
     private function selectKitchen($selectDish) { 
-        $kitchen_id = $selectDish;
-        $kitchen = $this->selectKitchenType($kitchen_id);
+        $kitchen_id = $selectDish["kitchen_id"];
+        $kitchen = $this->kitchentype->selectKitchenType($kitchen_id);
         return($kitchen);
     }
 
     private function selectType($selectDish) {
-        $type_id = $selectDish;
-        $type = $this->selectKitchentype($type_id);
+        $type_id = $selectDish["type_id"];
+        $type = $this->kitchentype->selectKitchentype($type_id);
         return($type);
     }
 }

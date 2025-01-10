@@ -28,36 +28,15 @@ class dish_Info {
         $result = mysqli_query($this->connection, $sql);
 
         $return = [];
+        
+        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+            $user = [];
 
-        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            if($row["user_id"] == NULL){
-                $return[] = [
-                    "id" => $row["id"],
-                    "record_type" => $row["record_type"],
-                    "dish_id" => $row["dish_id"],
-                    "user_id" => $row["user_id"],
-                    "date" => $row["date"],
-                    "number_field" => $row["number_field"],
-                    "text_field" => $row["text_field"],
-                ];
-            } else {
+            if($row["user_id"] == !NULL) {
                 $user_id = $row["user_id"];
                 $user = $this->selectUser($user_id);
-                $return[] = [
-                    "id" => $row["id"],
-                    "record_type" => $row["record_type"],
-                    "dish_id" => $row["dish_id"],
-                    "user_id" => $user_id,
-                    "date" => $row["date"],
-                    "number_field" => $row["number_field"],
-                    "text_field" => $row["text_field"],
-                    "user_id" => $user_id,
-                    "name" => $user["name"],
-                    "email" => $user["e-mail"],
-                    "password" => $user["password"],
-                    "photo" => $user["photo"],
-                ];
             }
+            $return [] = [...$user, ...$row];
         }
         return($return);
     }

@@ -8,7 +8,7 @@ class kitchentype {
         $this->connection = $connection;
     }
   
-    public function selectKitchentype($kitchentype_id) {
+    public function selectKitchenType($kitchentype_id) {
 
         $sql = "select * from kitchentype where id = $kitchentype_id";
         

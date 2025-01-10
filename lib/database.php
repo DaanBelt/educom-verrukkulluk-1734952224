@@ -12,13 +12,13 @@ class database {
 
     public function __construct() {
        $this->connection = mysqli_connect(HOST,                                          
-                                         USER, 
-                                         PASSWORD,
-                                         DATABASE );
+        USER, 
+        PASSWORD,
+        DATABASE);
     }
 
     public function getConnection() {
         return($this->connection);
     }
-
 }
+
