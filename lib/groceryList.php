@@ -15,8 +15,6 @@ class groceryList {
         $this->article = new article($connection);
     }
     
-
-
     public function addGroceries($dish_id, $user_id) {
         $ingredients = $this->selectIngredient($dish_id);
         
@@ -25,10 +23,10 @@ class groceryList {
         foreach($ingredients as $ingr) {
             $article_id = $ingr["article_id"];
             $article = $this->selectArticle($article_id);
-            $grocery = $this->selectArticleFromGrocery($user_id, $article_id);
 
             if($this->articleOnList($ingr["article_id"], $user_id)) {
                 //updateArticle;
+                $grocery = $this->selectArticleFromGrocery($user_id, $article_id);
                 $amount = $grocery["amount"] + $ingr["amount"];
                 $packaging = ceil($amount/$article["packaging"]);
                 $sql = "UPDATE grocery_list SET amount = $amount, packaging = $packaging WHERE article_id = $article_id AND user_id = $user_id";
