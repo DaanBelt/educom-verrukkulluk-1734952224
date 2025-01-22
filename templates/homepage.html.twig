@@ -2,47 +2,56 @@
 {% extends "main.html.twig" %}
 
 {% block header %}
-<img src="assets/img/logo-v2.png"/>
+   
+    <img class="headerimage" src="assets/img/scale.jpg"/>
 {% endblock %}
 
 
 {# nu de block content op in de main pagina vullen #}
 {% block content %}
-    {# Dit is commentaar #}
-
-    {# Print #}
-    <h1>Heading #1</h1>
-    <h2>Heading #2</h2>
-    <h3>Heading #3 t/m 5</h3>
-
-    <h4>Dit is de template {{  title }}</h4>
-
 {# Loop #}
-    <ul>
+<div class="row justify-content-around">
     {% for record in data %}
-        <li>
-            <img src="{{ record.foto }}" style="width: 100px; heigfht: 100px;">
+        <div class="col-5 d-flex flex-column justify-content-between box-shadow mb-5">
+            <div class="row">
+                <div class="col-12 p-0">
+                    <img src="{{ record.dish.photo }}" class="dish-photo"/>
+                </div>
+            </div>
 
-            {{ record.title }}
-            {# sub-loop #}
-            <ul>
-                {% for ingr in record.ingredienten %}
-                    <li>
-                        <span {% if ingr.id < 2 %}style='color: #F00'{% endif %}>{{  ingr.naam }}</span>
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="dish-title">{{ record.dish.title }}</h4>
+                </div>
+            </div>
 
-                        {# if #}
-                        {%  if ingr.id == 3 %}
-                            <strong>Dit is ID 3!</strong>
-                        {%  endif  %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </li>
+            <div class="row">
+                <div class="col-12">
+                    <p class="record-description">{{ record.dish.description_short }}</p>
+                </div>
+            </div>
+
+            <div class="row mb-4 ">
+                <div class="col-5">
+                    <a href="http://localhost:8888/educom-verrukkulluk-1734952224/index.php?dish_id={{record.dish.id}}&action=detail">
+                        <button type="submit" class="smullen-button">
+                            <span class="smullen-text">Smullen!</span>
+                        </button>
+                    </a>
+                </div>
+
+                <div class="col-7 d-flex align-items-center justify-content-end">
+                    <i class="fa-solid fa-users" style="color: #ff2600;"></i>
+                    <span class="dish-info">4</span>
+                    <i class="fa-solid fa-euro-sign" style="color: #ff2600;"></i>
+                    {% set price = record.total_price / 100%}
+                    <span class="dish-info">{{ price | number_format(2)}}</span>
+                    <i class="fa-solid fa-fire" style="color: #ff2600;"></i>
+                    <span class="dish-info">{{ record.total_calories | number_format(0)}}</span>
+                </div>
+            </div>
+        </div>
     {% endfor %}
-    <ul>
-     {# Dump #}
-       <pre>
-        {{ dump(data) }}
-       </pre>
-
+    {# Dump #}
+</div>        
 {% endblock %}

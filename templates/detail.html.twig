@@ -1,5 +1,57 @@
 {% extends "main.html.twig" %}
 
 {% block header %}
-<h1>Hallo Bram</h1>
+    {% for record in data %}
+        <img src="{{ record.dish.photo }}" class="headerimage"/>
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+    {% for record in data %}
+    <div class="row justify-content-around">
+        <div class="col-6 pl-4 pr-0">
+            <img src="{{ record.dish.photo }}" class="headerimage box-shadow"/>
+        </div>
+        <div class="col-6 pl-0 box-shadow">
+            <div class="row mt-2">
+                <div class="col-11 offset-1 d-flex justify-content-start align-items-center">
+                    <i class="fa-solid fa-users" style="color: #ff2600;"></i>
+                    <span class="dish-info">4</span>
+                    <i class="fa-solid fa-euro-sign" style="color: #ff2600;"></i>
+                    {% set price = record.total_price / 100%}
+                    <span class="dish-info">{{ price | number_format(2)}}</span>
+                    <i class="fa-solid fa-fire" style="color: #ff2600;"></i>
+                    <span class="dish-info">{{ record.total_calories | number_format(0)}}</span>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-11 offset-1 d-flex align-items-center">
+                    <h4 class="detail-title">{{ record.dish.title }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 offset-1 d-flex align-items-center">
+                    <span class="kitchen-type pr-3">Keuken</span>
+                    <span class="kitchen-type2">{{ record.kitchen.description }}</span>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                    <span class="kitchen-type pr-3">type</span>
+                    <span class="kitchen-type2">{{ record.type.description }}</span>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-11 offset-1">
+                    <span>{{ record.dish.description_long }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-11 offset-1">
+                    <button>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}

@@ -1,53 +1,201 @@
 <html lang="nl">
-<head>
+	<head>
+		<title>het is verrukkuluk! ::
+			{{ title }}
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <title>het is verrukkuluk! :: {{ TITEL }} </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css"/>
 
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/fonts.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/fonts.css"/>
+		<link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css"/>
 
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
 
-    <script type="text/javascript" language="javascript" src="assets/jquery/jquery-3.5.1.js"></script>
-    <script type="text/javascript" language="javascript" src="assets/bootstrap/js/bootstrap.js"></script>
+		<script type="text/javascript" language="javascript" src="assets/jquery/jquery-3.5.1.js"></script>
+		<script type="text/javascript" language="javascript" src="assets/bootstrap/js/bootstrap.js"></script>
 
-</html>
-<body>
-<div class="container-fluid">
+        {# Dropdown script #}
+        <script>
+            $(document).ready(function(){
+                $("#menu-trigger").click(function(){
+                    $(".dropdown").toggleClass("active");
+                })
 
-    <div class="row">
-        <div class="col-md-12">
-        {% block header %}
+                $(".dropdown").click(function(){
+                    $(".dropdown").toggleClass("active");
+                })
+            })
+
             
-        {% endblock %}   
+        </script>
+
+	</head>
+
+    <body>
+        <div class="container-fluid">
+            {# Header #}
+            <div class="row header">
+                <div class="col-12 position-relative p-0"> 
+                    {% block header %}{% endblock %}
+                    <div class="row position-absolute top-0 w-100">
+                        <div class="col-3">
+                            <a href="http://localhost:8888/educom-verrukkulluk-1734952224/index.php">
+                                <img class="header-burger" src="assets/img/logo-v2.png"/>
+                            </a>
+                        </div>
+                        <div class="col-2 offset-6">
+                            <div class="row justify-content-start mt-3">
+                                <input type="text" class="searchbar">
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="row justify-content-center mt-2">
+                                <div class="menu-trigger" id="menu-trigger">
+                                    <div class="trigger-icon"></div>
+                                </div>
+                                <div class="dropdown">
+                                    <div class="row h-100 align-items-center">
+                                        <img class="col-3 dropdownimage" src="assets/img/logo-v2.png"/>
+                                        <h1 class="col-2 offset-2">Mijn Favorieten</h1>
+                                        <h1 class="col-3 offset-1">Mijn Boodschappenlijst</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {# Agenda & content #}
+            <div class="row content my-4 mx-2">
+                <div class="col-3 d-flex flex-column justify-content-between">
+                    <div class="row agenda mb-3">
+                        <div class="col-12">
+                            <div class="row "> 
+                                <div class="col-12 d-flex justify-content-center">
+                                    <img class="agenda-logo " src="assets/img/verrukkulluk-agenda.png"/>
+                                </div>
+                            </div>
+                            
+                            {# Agenda item 1 #}
+                            <div class="row">
+                                <div class="col-3 mt-1 d-flex justify-content-center ">
+                                    <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
+                                </div>
+                                    
+                                <div class="col-9 p-0">
+                                    <h4 class="event-title m-0 d-flex justify-content-start">Vegatarish koken</h4>
+                                    <p class="event-description m-0 d-flex justify-content-center">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<p>
+                                </div>
+                            </div>
+
+                            {# Agenda item 2 #}
+                            <div class="row">
+                                <div class="col-3 mt-1 d-flex justify-content-center">
+                                    <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
+                                </div>
+                                    
+                                <div class="col-9 p-0">
+                                    <h4 class="event-title m-0 d-flex justify-content-start">Vegatarish koken</h4>
+                                    <p class="event-description m-0 d-flex justify-content-center">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<p>
+                                </div>
+                            </div>
+                            
+                            {# Agenda item 3 #}
+                            <div class="row">
+                                <div class="col-3 mt-1 d-flex justify-content-center">
+                                    <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
+                                </div>
+                                    
+                                <div class="col-9 p-0">
+                                    <h4 class="event-title m-0 d-flex justify-content-start">Vegatarish koken</h4>
+                                    <p class="event-description m-0 d-flex justify-content-center">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<p>
+                                </div>
+                            </div>
+                            
+                            {# Agenda item 4 #}
+                            <div class="row">
+                                <div class="col-3 mt-1 d-flex justify-content-center">
+                                    <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
+                                </div>
+                                    
+                                <div class="col-9 p-0">
+                                    <h4 class="event-title m-0 d-flex justify-content-start">Vegatarish koken</h4>
+                                    <p class="event-description m-0 d-flex justify-content-center">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<p>
+                                </div>
+                            </div>
+
+                            {# Agenda item 5 #}
+                            <div class="row">
+                                <div class="col-3 mt-1 d-flex justify-content-center">
+                                    <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
+                                </div>
+                                    
+                                <div class="col-9 p-0">
+                                    <h4 class="event-title m-0 d-flex justify-content-start">Vegatarish koken</h4>
+                                    <p class="event-description m-0 d-flex justify-content-center">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Login #}
+                    <div class="row login mb-5">
+                        <form method="POST" action="https://api.dev-master.ninja/html/form">
+                            <div class="col-12 d-flex justify-content-center mt-2">
+                                <img class="login-logo" src="assets/img/verrukkulluk-login.png"/>
+                            </div>
+                            <div class="col-12">
+                                <p class="e-mail-text d-flex justify-content-start my-0 ml-2">E-mail</p>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center mb-2 mt-1">
+                                <input type="email" class="e-mail" name="e-mail">
+                            </div>
+                            <div class="col-12 d-flex justify-content-start">
+                                <p class="password-text my-0 ml-2">Wachtwoord</p>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center mb-2 mt-1">
+                                <input type="password" class="password" name="password">
+                            </div>
+                            <div class="col-12 d-flex justify-content-center align-items-center mb-2">
+                                <button type="submit" class="submit">
+                                    <span class="submit-text">Login</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                {# content #}
+                <div class="col-9">
+                    {%  block content %}
+                    {%  endblock %}
+                </div>
+            </div>
+             
+            {# <pre>
+                {{ dump(data)}}
+            </pre> #}
+
+            {# Footer #}
+            <div class="row footer">
+                <div class="col-md-1 col-1">
+                    <img class="footerPhoto" src="assets/img/verrukkulluk-pay-off.png"/>
+                </div>
+                <div class="col-md-2 col-2 ">
+                    <img class="footerContact" src="assets/img/verrukkulluk-contact.png"/>
+                    <div class="footerText">
+                        <p>Verrukkulluk.nl
+                        <br>Poststraat 2b
+                        <br>Sittard
+                        <br>info@verrukkulluk.nl</p>
+                    </div>
+                </div>
+            </div>
+            {# End footer #}
         </div>
-    </div>
+    </body>
+</html>
 
-    <div class="row">
-        <div class="col-md-3">
-            <h2>Agenda</h2>
-            <i class="fa fa-calendar"></i> FontAwesome <a href="https://fontawesome.com/icons?d=gallery&m=free">Documentation</a><br>
-            <i class="fa fa-file-pdf"></i><a href="https://www.layoutit.com/build">Layout-it</a>
-
-
-        </div>
-        <div class="col-md-9">
-            <h2>Content</h2>
-            {%  block content %}
-            {%  endblock %}
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Footer</h1>
-        </div>
-    </div>
-
-
-</div>
-
-</body>
