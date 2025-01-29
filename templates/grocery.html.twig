@@ -1,0 +1,60 @@
+{% extends "main.html.twig" %}
+
+{% block header %}
+    <img class="headerimage" src="assets/img/scale.jpg"/>
+{% endblock %}
+
+{% block content %}
+<div class="row grocery-list box-shadow ml-1">
+    <div class="col-12 pl-4 my-3">
+        <span class="grocery-title">Boodschappen</span>
+    </div>
+    {% for record in data %}
+    <div class="col-12 pl-4 my-3">
+        <div class="row">
+            <div class="col-2">
+                <img src="{{ record.picture }}" class="grocery-image"/>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <span class="grocery-name">{{ record.title }}</span>
+                </div>
+                <div class="row">
+                    <span class="grocery-description">{{ record.description }}</span>
+                </div>
+            </div>
+            <div class="col-4">
+                <form action="./index.php?user={{ record.user_id }}&article={{ record.article_id }}&action=delete-article" method="POST">
+                    <span class="grocery-packaging">{{ record.packaging }}</span>
+                    <i class="fa-solid fa-euro-sign" style="color: #ff2600;"></i>
+                    <span class="grocery-price">{{ record.packaging * (record.price / 100)}}</span>
+                    <i class="fa-solid fa-check" style="color: #678f3f;"></i>
+                    <button class="delete-button">
+                        <i class="fa-regular fa-trash-can grocery-delete" style="color: #ff2600;"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="col-12">
+        <div class="row">
+            <div class="col-3">
+                <span>Totaal</span>
+            </div>
+            <div class="col-4 offset-5">
+                <i class="fa-solid fa-euro-sign" style="color: #ff2600;"></i>
+                <span></span>
+                <i class="fa-regular fa-trash-can grocery-delete" style="color: #ff2600;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# <pre>
+    {{ dump(data)}}
+</pre> #}
+{% endblock %}
+
+{# Geef overkoepeld max-width, mx-auto, 
+    #}

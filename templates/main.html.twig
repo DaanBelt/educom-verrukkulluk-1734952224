@@ -14,10 +14,12 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
 
 		<script type="text/javascript" language="javascript" src="assets/jquery/jquery-3.5.1.js"></script>
-		<script type="text/javascript" language="javascript" src="assets/bootstrap/js/bootstrap.js"></script>
+		{# // <script type="text/javascript" language="javascript" src="assets/bootstrap/js/bootstrap.js"></script> #}
 
-        {# Dropdown script #}
+        <script type="text/javascript" language="javascript" src="assets/src/js/bootstrap.min.js"></script>
+
         <script>
+            // Dropdown script
             $(document).ready(function(){
                 $("#menu-trigger").click(function(){
                     $(".dropdown").toggleClass("active");
@@ -26,10 +28,30 @@
                 $(".dropdown").click(function(){
                     $(".dropdown").toggleClass("active");
                 })
-            })
 
-            
+                {% for record in data %}
+                    var dishid = {{ record.dish.id }};
+                    console.log("dishid:", dishid);  
+                    var average = Math.round({{ record.rating.average }});
+                    console.log("average:", average);
+                    
+
+                    $(`.star[dish-id="${dishid}"]`).each((index, elem) => {
+                        var itemValue = $(elem).attr('data-value');
+                        console.log("itemValue:", itemValue);
+
+                        if(itemValue <= average) {
+                            $(elem).addClass('yellow');
+                        } else {
+                            $(elem).removeClass('yellow');
+                        }
+                    });
+                {% endfor %}
+            });
         </script>
+
+        {% block script %}
+        {% endblock %}
 
 	</head>
 
@@ -46,8 +68,14 @@
                             </a>
                         </div>
                         <div class="col-2 offset-6">
-                            <div class="row justify-content-start mt-3">
+                            {# <div class="row justify-content-start mt-3">
                                 <input type="text" class="searchbar">
+                            </div> #}
+                            <div class="row justify-content-start mt-3">
+                                <form method="POST" action="./index.php?action=search">
+                                    <input class="searchbar" type="text" name="search" placeholder="Zoeken">
+                                    <input type="submit" value="submit">
+                                </form>
                             </div>
                         </div>
                         <div class="col-1">
@@ -55,15 +83,19 @@
                                 <div class="menu-trigger" id="menu-trigger">
                                     <div class="trigger-icon"></div>
                                 </div>
-                                <div class="dropdown">
-                                    <div class="row h-100 align-items-center">
-                                        <img class="col-3 dropdownimage" src="assets/img/logo-v2.png"/>
-                                        <h1 class="col-2 offset-2">Mijn Favorieten</h1>
-                                        <h1 class="col-3 offset-1">Mijn Boodschappenlijst</h1>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+                        <div class="dropdown">
+                            <div class="row h-100 align-items-center">
+                                <img class="col-3 dropdownimage" src="assets/img/logo-v2.png"/>
+                                <h1 class="col-2 offset-2">Mijn Favorieten</h1>
+                                <a class="col-3 offset-1" href="./index.php?action=grocery-list">
+                                    <button type="submit" class="grocery-button">
+                                        <h1 class="smullen-text">Mijn Boodschappenlijst</h1> 
+                                    </button>
+                                </a>
+                            </div>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -143,7 +175,7 @@
 
                     {# Login #}
                     <div class="row login mb-5">
-                        <form method="POST" action="https://api.dev-master.ninja/html/form">
+                        <form method="POST">
                             <div class="col-12 d-flex justify-content-center mt-2">
                                 <img class="login-logo" src="assets/img/verrukkulluk-login.png"/>
                             </div>
@@ -169,15 +201,11 @@
                 </div>
                 
                 {# content #}
-                <div class="col-9">
+                <div class="col-9 pl-4">
                     {%  block content %}
                     {%  endblock %}
                 </div>
             </div>
-             
-            {# <pre>
-                {{ dump(data)}}
-            </pre> #}
 
             {# Footer #}
             <div class="row footer">

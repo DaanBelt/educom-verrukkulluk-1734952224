@@ -6,10 +6,49 @@
     {% endfor %}
 {% endblock %}
 
+{% block script %}
+    {% for record in data %}
+        <script>
+            $(document).ready(function() {
+                $(".star").click(function(){
+                    var dishId = {{ record.dish.id }};
+                    var rating = $(this).attr("data-value");
+                    console.log("rating:", rating);
+                    console.log("dishid:", dishId);
+
+                    $.ajax({
+                        url: `http://localhost:8888/educom-verrukkulluk-1734952224/index.php?dish_id=${dishId}&rating=${rating}&action=rating`,
+                        method: "GET",
+                        success: function(result) {
+                            var average = Math.round(result.Average);
+                            console.log("average:", average);
+
+                            $(`.star[dish-id="${dishId}"]`).each((index, elem) => {
+                                var itemValue = $(elem).attr('data-value');
+                                console.log("itemValue:", itemValue);
+
+                                if(itemValue <= average) {
+                                    $(elem).addClass('yellow');
+                                } else {
+                                    $(elem).removeClass('yellow');
+                                }
+                            });
+
+                            
+                        }
+                    })
+                    $(".star").removeClass('red');
+                    $(this).addClass('red');
+                })  
+            })
+        </script>
+    {% endfor %}
+{% endblock %}
+
 {% block content %}
     {% for record in data %}
     <div class="row justify-content-around">
-        <div class="col-6 pl-4 pr-0">
+        <div class="col-6 pr-0">
             <img src="{{ record.dish.photo }}" class="headerimage box-shadow"/>
         </div>
         <div class="col-6 pl-0 box-shadow">
@@ -26,9 +65,15 @@
             </div>
             <div class="row mt-3">
                 <div class="col-11 offset-1 d-flex align-items-center">
-                    <h4 class="detail-title">{{ record.dish.title }}</h4>
+                    <h4 class="detail-title pr-3">{{ record.dish.title }}</h4>
+                    <span class="star starhover" dish-id={{ record.dish.id }} data-value="1">*</span>
+                    <span class="star starhover" dish-id={{ record.dish.id }} data-value="2">*</span>
+                    <span class="star starhover" dish-id={{ record.dish.id }} data-value="3">*</span>
+                    <span class="star starhover" dish-id={{ record.dish.id }} data-value="4">*</span>
+                    <span class="star starhover" dish-id={{ record.dish.id }} data-value="5">*</span>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-5 offset-1 d-flex align-items-center">
                     <span class="kitchen-type pr-3">Keuken</span>
@@ -42,16 +87,60 @@
             
             <div class="row">
                 <div class="col-11 offset-1">
-                    <span>{{ record.dish.description_long }}</span>
+                    <span class="detail-description">{{ record.dish.description_long }}</span>
                 </div>
             </div>
             <div class="row">
-                <div class="col-11 offset-1">
-                    <button>
-                    </button>
+                <div class="col-11 offset-1 my-3">
+                    <a href="./index.php?dish_id={{record.dish.id}}&action=add-grocery">
+                        <button type="submit" class="list-button">
+                            <span class="list-text">Op lijst</span>
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row mt-2">
+        <div class="col-md-12 pr-0">
+            <div class="tabbable" id="tabs-483088">
+                <ul class="nav nav-tabs">
+
+                <li class="nav-item">
+                    <a class="nav-link active show" href="#tab1" data-toggle="tab">Ingredienten</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link show" href="#tab2" data-toggle="tab">Bereidingswijze</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link show" href="#tab3" data-toggle="tab">Opmerkingen</a>
+                </li>
+                </ul>
+        
+                <div class="tab-content">
+                            
+                    <div class="tab-pane active" id="tab1">
+                        {% for ingredients in record.ingredients %}
+                            <img src="{{ ingredients.picture }}" class="detail-image"/>
+                        {% endfor %}
+                    </div>
+
+                    <div class="tab-pane" id="tab2">
+                        <p>
+                        Howdy, I'm in Section 2.
+                        </p>
+                    </div>
+            
+                    <div class="tab-pane" id="tab3">
+                        <p>
+                        Howdy, Opmerkingen, I'm in Section 3.
+                        </p>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% endfor %}
 {% endblock %}

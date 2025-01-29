@@ -1,5 +1,24 @@
 <?php
+//// Allereerst zorgen dat de "Autoloader" uit vendor opgenomen wordt:
+require_once("./vendor/autoload.php");
 
+/// Twig koppelen:
+$loader = new \Twig\Loader\FilesystemLoader("./templates");
+/// VOOR PRODUCTIE:
+/// $twig = new \Twig\Environment($loader), ["cache" => "./cache/cc"]);
+
+/// VOOR DEVELOPMENT:
+$twig = new \Twig\Environment($loader, ["debug" => true ]);
+$twig->addExtension(new \Twig\Extension\DebugExtension());
+
+/******************************/
+
+/// Next step, iets met je data doen. Ophalen of zo
+require_once("lib/dish.php");
+
+
+
+// data retrieval
 require_once("lib/database.php");
 require_once("lib/article.php");
 require_once("lib/user.php");
@@ -7,83 +26,96 @@ require_once("lib/kitchentype.php");
 require_once("lib/ingredient.php");
 require_once("lib/dish_info.php");
 require_once("lib/dish.php");
-require_once("lib/dish_test.php");
 require_once("lib/groceryList.php");
 
-/// INIT
+
+// data init
 $db = new database();
+$dish = new dish ($db->getConnection());
 // $art = new article($db->getConnection());
 // $user = new user($db->getConnection());
 // $kitchentype = new kitchentype($db->getConnection());
 // $ingredient = new ingredient($db->getConnection());
-// $dish_info = new dish_info($db->getConnection());
-// $dish_type = new dish ($db->getConnection());
-// $dish_test = new dishTest($db->getConnection()); 
+$dish_info = new dish_info($db->getConnection());
 $grocery_list = new groceryList($db->getConnection());
 
-/// VERWERK 
-// $data_article= $art->selectArticle(1);
-// $data_user = $user->selectUser(1);
-// $data_kitchentype = $kitchentype->selectKitchentype(2);
-// $data_ingredient = $ingredient->selectIngredient(1);
-// $favoriteAdd = $dish_info->addFavorite(1,2);
-// $favoriteDelete = $dish_info->deleteFavorite(1,2);
-// $data_dish_info = $dish_info->selectDishInfo(1);
+/*
+URL:
+http://localhost:8888/educom-verrukkulluk-1734952224/index.php
+http://localhost:8888/educom-verrukkulluk-1734952224/index.php?dish_id=4&action=detail 
+http://localhost:8888/educom-verrukkulluk-1734952224/index.php?dish_id=${dish_id}&rating=${rating}&action=rating`
+*/
 
-// $data_dish = $dish_type->selectDish();
-// $data_dish_ingredient = $dish_type->selectIngredient(1);
-// $data_dish_user = $dish_type->selectUser(1);
-// $data_dish_test = $dish_test->selectDish();
+$dish_id = isset($_GET["dish_id"]) ? $_GET["dish_id"] : "";
+$action = isset($_GET["action"]) ? $_GET["action"] : "homepage";
+$rating = isset($_GET["rating"]) ? $_GET["rating"] : "";
+$user_id = isset($_GET["user"]) ? $_GET["user"] : "2";
+$article_id = isset($_GET["article"]) ? $_GET["article"] : "";
+$searchTerm = isset($_POST['search']) ? $_POST['search'] : "";
 
-// $data_grocery = $grocery_list->selectGroceries(1);
-// $data_grocery1 = $grocery_list->articleOnList(3, 1);
-$data_grocery2 = $grocery_list->addGroceries(1, 2);
+switch($action) {
 
-/// RETURN
-// echo "<pre>";
-// echo "Article data: ";  
-// var_dump($data_article);
+        case "homepage": {
+            $data = $dish->selectDish();
+            $template = 'homepage.html.twig';
+            $title = "homepage";
+            break;
+        }
 
-// echo "<pre>";
-// echo "User data: "; 
-// var_dump($data_user);
+        case "detail": {
+            $data = $dish->selectDish($dish_id);
+            $template = 'detail.html.twig';
+            $title = "detail pagina";
+            break;
+        }
+        
+        case "rating": {
+            header('Content-type: application/json');
+            $dish_info->addRating($dish_id, $rating);
+            $allRatings = $dish->selectRating($dish_id);
+            $averageRating = $allRatings["average"];
 
-// echo "<pre>";
-// echo "Kitchentype data: ";
-// var_dump($data_kitchentype);
+            $result = array("succes"=>true, "Average"=>$averageRating);
+            echo json_encode($result);
+            die();
+        }
 
-// echo "<pre>";
-// echo "Ingredient data: ";
-// var_dump($data_ingredient);
+        case "grocery-list": {
+            $data = $grocery_list->selectGroceries($user_id);
+            $template = 'grocery.html.twig';
+            $title = "Boodschappenlijst";
+            break;
+        }
 
-// echo "<pre>";
-// echo "dish_info: ";
-// var_dump($data_dish_info);
+        case "add-grocery": {
+            $grocery_list->addGroceries($dish_id, $user_id);
+            $data = $grocery_list->selectGroceries($user_id);
+            $template = 'grocery.html.twig';
+            $title = "Boodschappenlijst";
+            break;
+        }
 
-// echo "<pre>";
-// echo "dish: ";
-// var_dump($data_dish);
+        case "delete-article": {
+            $grocery_list->deleteGrocery($article_id, $user_id);
+            $data = $grocery_list->selectGroceries($user_id);
+            $template = 'grocery.html.twig';
+            $title = "Boodschappenlijst";
+            break;
+        }
 
-// echo "<pre>";
-// echo "dish: ";
-// var_dump($data_dish_ingredient);
+        case "search": {
+            $data = $dish->searchTerm($searchTerm);
+            $template = 'search.html.twig';
+            $title = "search";
+            break;
+        }
+}
 
-// echo "<pre>";
-// echo "dish: ";
-// // var_dump($data_dish_user);
 
-// echo "<pre>";
-// echo "dish: ";
-// var_dump($data_dish_test);
+/// Onderstaande code schrijf je idealiter in een layout klasse of iets dergelijks
+/// Juiste template laden, in dit geval "homepage"
+$template = $twig->load($template);
 
-// echo "<pre>";
-// echo "dish: ";
-// var_dump($data_grocery);
 
-// echo "<pre>";
-// echo "dish: ";
-// var_dump($data_grocery1);
-
-echo "<pre>";
-echo "dish: ";
-var_dump($data_grocery2);
+/// En tonen die handel!
+echo $template->render(["title" => $title, "data" => $data]);

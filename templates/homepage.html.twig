@@ -2,10 +2,8 @@
 {% extends "main.html.twig" %}
 
 {% block header %}
-   
     <img class="headerimage" src="assets/img/scale.jpg"/>
 {% endblock %}
-
 
 {# nu de block content op in de main pagina vullen #}
 {% block content %}
@@ -22,6 +20,11 @@
             <div class="row">
                 <div class="col-12">
                     <h4 class="dish-title">{{ record.dish.title }}</h4>
+                    <span class="star" dish-id={{ record.dish.id }} data-value="1">*</span>
+                    <span class="star" dish-id={{ record.dish.id }} data-value="2">*</span>
+                    <span class="star" dish-id={{ record.dish.id }} data-value="3">*</span>
+                    <span class="star" dish-id={{ record.dish.id }} data-value="4">*</span>
+                    <span class="star" dish-id={{ record.dish.id }} data-value="5">*</span>
                 </div>
             </div>
 

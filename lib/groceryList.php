@@ -41,6 +41,11 @@ class groceryList {
         }
     }
 
+    public function deleteGrocery($article_id, $user_id) {
+        $sql = "DELETE FROM grocery_list WHERE article_id = $article_id AND user_id = $user_id";
+        $result = mysqli_query($this->connection, $sql);
+    }
+
     public function articleOnList($article_id, $user_id) {
         $groceries = $this->selectGroceries($user_id);
         
@@ -59,7 +64,9 @@ class groceryList {
         $grocery_list = [];
 
         while($grocery = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            $grocery_list [] = $grocery; 
+            $art_id = $grocery["article_id"];
+            $art = $this->selectArticle($art_id);
+            $grocery_list [] = [...$art, ...$grocery];
         }
         return($grocery_list);
     }

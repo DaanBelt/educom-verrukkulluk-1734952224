@@ -77,19 +77,19 @@ class dish {
         return($this->kitchentype->selectKitchenType($dish_id));
     }
 
-    private function calcCalories($ingredients) {
+    public function calcCalories($ingredients) {
         $totalCalories = 0;
 
-       foreach($ingredients as $ingr) {
+        foreach($ingredients as $ingr) {
             $art_id = $ingr["article_id"];
             $art = $this->selectArticle($art_id);
             $calc = $art["kcal"]/$art["packaging"]*$ingr["amount"];
             $totalCalories += $calc;
-       }
-       return($totalCalories);
+        }
+        return($totalCalories);
     }
 
-    private function calcPrice($ingredients) {
+    public function calcPrice($ingredients) {
         $totalPrice = 0;
 
         foreach($ingredients as $ingr) {
@@ -101,14 +101,27 @@ class dish {
         return($totalPrice);
     }
 
-    private function selectRating($dish_id) {
-       $rating = $this->selectDishInfo($dish_id);
+    public function selectRating($dish_id) {
+        $rating = $this->selectDishInfo($dish_id);
         foreach($rating as $key => $item) {
             if ($item['record_type'] === 'B' || $item['record_type'] === 'O' || $item['record_type'] === 'F') {
                 unset($rating[$key]);
             }
         }
-       return($rating);
+        
+        $ratingTotal = 0;
+        $count = 0;
+        if(count($rating) > 0) {
+            foreach($rating as $item) {
+                $ratingTotal += $item['number_field'];
+                $count ++;
+            }
+            $averageRating = $ratingTotal / $count;
+            } else {
+                $averageRating = 0;
+            }
+            $rating['average'] = $averageRating;
+            return($rating);   
     }
 
     private function selectSteps($dish_id) {
@@ -151,6 +164,39 @@ class dish {
         $type_id = $selectDish;
         $type = $this->selectKitchentype($type_id);
         return($type);
+    }
+
+    public function findSearchTerm($dish, $searchTerm) {
+        foreach ($dish as $value) {
+            if (is_string($value)) {
+                if (preg_match("/$searchTerm/i", $value)) {
+                    return(true);
+                }
+            }
+
+            if (is_array($value) && $this->findSearchTerm($value, $searchTerm)) {
+                return(true);
+            }
+        }
+        return false;
+    }
+
+    public function searchTerm($searchTerm) {
+        $data = $this->selectDish();
+        $results = [];
+        
+        foreach ($data as $dish) {
+            if ($this->findSearchTerm($dish, $searchTerm)) {
+                $results[] = $dish;
+            } 
+        }
+
+        if(!empty($results)) {
+            return($results); 
+        } else {
+            echo "Er zijn geen zoek resultaten gevonden voor '$searchTerm'";
+            return($results);
+        }
     }
 }
 ?>

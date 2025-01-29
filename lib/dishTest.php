@@ -1,5 +1,5 @@
 <?php
-class dish {
+class dishTest {
     private $connection;
     private $ingredient;
     private $user;
