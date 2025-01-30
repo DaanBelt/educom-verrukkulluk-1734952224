@@ -57,7 +57,7 @@ html, body {
 .headerimage {
     width: 100%;
     object-fit: cover;
-    height: 40vw;
+    height: 30vw;
 }
 
 .header-burger {
@@ -110,7 +110,6 @@ html, body {
 /* Agenda & content section */
 .agenda {
     background-color: var(--lighter-green);
-    /* margin: 15% 3%; */
 }
 
 .agenda-logo {
@@ -119,7 +118,6 @@ html, body {
 
 .calender-icon {
     font-size: 25px;
-    /* width: 70px; */
 }
 
 .event-title {
@@ -132,7 +130,6 @@ html, body {
 
 .login {
     background-color: var(--darker-red);
-    /* margin: 15% 3%; */
 }
 
 .login-logo {
@@ -168,7 +165,6 @@ html, body {
     padding: 0;
     margin: 0;
     line-height: 1;
-    /* display: flex; */
     justify-content: center;
     align-items: center;
 }   
@@ -225,6 +221,16 @@ html, body {
 
 .dish-content {
     border: solid 1px;
+}
+
+.agenda-container {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.login-container {
+    flex-grow: 1;
+    flex-shrink: 1; 
 }
 
 /* Content section detailpage */

@@ -8,9 +8,9 @@
 {# nu de block content op in de main pagina vullen #}
 {% block content %}
 {# Loop #}
-<div class="row justify-content-around">
+<div class="row justify-content-around content">
     {% for record in data %}
-        <div class="col-5 d-flex flex-column justify-content-between box-shadow mb-5">
+        <div class="col-5 d-flex flex-column justify-content-between box-shadow mb-3">
             <div class="row">
                 <div class="col-12 p-0">
                     <img src="{{ record.dish.photo }}" class="dish-photo"/>
