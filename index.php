@@ -104,8 +104,8 @@ switch($action) {
         }
 
         case "search": {
-            $data = $dish->searchTerm($searchTerm);
-            $template = 'search.html.twig';
+            $data = $dish->searchFunction($searchTerm);
+            $template = 'homepage.html.twig';
             $title = "search";
             break;
         }

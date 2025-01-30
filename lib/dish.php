@@ -167,21 +167,24 @@ class dish {
     }
 
     public function findSearchTerm($dish, $searchTerm) {
+        
+        $searchTermSingular = preg_replace('/(en|s)$/', '', $searchTerm);
+
         foreach ($dish as $value) {
             if (is_string($value)) {
-                if (preg_match("/$searchTerm/i", $value)) {
+                if (preg_match("/$searchTermSingular/i", $value)) {
                     return(true);
                 }
             }
 
-            if (is_array($value) && $this->findSearchTerm($value, $searchTerm)) {
+            if (is_array($value) && $this->findSearchTerm($value, $searchTermSingular)) {
                 return(true);
             }
         }
         return false;
     }
 
-    public function searchTerm($searchTerm) {
+    public function searchFunction($searchTerm) {
         $data = $this->selectDish();
         $results = [];
         
@@ -192,6 +195,7 @@ class dish {
         }
 
         if(!empty($results)) {
+            echo "Zoek resultaten voor '$searchTerm':";
             return($results); 
         } else {
             echo "Er zijn geen zoek resultaten gevonden voor '$searchTerm'";

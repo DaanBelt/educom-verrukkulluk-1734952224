@@ -30,8 +30,8 @@ $dish_type = new dish ($db->getConnection());
 // $data_dish_info = $dish_info->selectDishInfo(1);
 // $data_dish_info = $dish_info->deleteRating(1);
 
-// $data_dish = $dish_type->selectDish();
-$data_search = $dish_type->SearchTerm("lkajsghfkjhdagsdhfgkahjsg");
+$data_dish = $dish_type->selectDish();
+// $data_search = $dish_type->searchFunction("macaroni");
 // $data_dish_rating = $dish_type->selectRating(2);
 // $data_dish_ingredient = $dish_type->selectIngredient(1);
 // $data_dish_user = $dish_type->selectUser(1);
@@ -62,9 +62,9 @@ $data_search = $dish_type->SearchTerm("lkajsghfkjhdagsdhfgkahjsg");
 // echo "dish_info: ";
 // var_dump($data_dish_info);
 
-// echo "<pre>";
-// echo "dish: ";
-// var_dump($data_dish);
+echo "<pre>";
+echo "dish: ";
+var_dump($data_dish);
 
 // echo "<pre>";
 // echo "dish: ";
@@ -90,6 +90,6 @@ $data_search = $dish_type->SearchTerm("lkajsghfkjhdagsdhfgkahjsg");
 // echo "dish: ";
 // var_dump($data_grocery2);
 
-echo "<pre>";
-echo "dish: ";
-var_dump($data_search);
+// echo "<pre>";
+// echo "dish: ";
+// var_dump($data_search);
