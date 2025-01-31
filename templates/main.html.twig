@@ -101,107 +101,102 @@
             </div>
             
             {# Agenda & content #}
-            <div class="row content mx-2 mt-3">
-                <div class="col-3 d-flex flex-column justify-content-between">
-                    <div class="row agenda mb-3 agenda-container">
+            <div class="row mx-2">
+                <div class="col-3 d-flex flex-column mt-3">
+                    <div class="row agenda login-container mb-3">
+                        <div class="col-12 d-flex justify-content-center"> 
+                            <img class="agenda-logo" src="assets/img/verrukkulluk-agenda.png"/>
+                        </div>
+
                         <div class="col-12">
-                            <div class="row "> 
-                                <div class="col-12 d-flex justify-content-center">
-                                    <img class="agenda-logo " src="assets/img/verrukkulluk-agenda.png"/>
+                            <!-- Agenda item 1 -->
+                            <div class="row mb-2 mr-1">
+                                <div class="col-3 mt-2 d-flex justify-content-center">
+                                    <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
+                                </div>
+                                <div class="col-9 d-flex flex-column pl-0">
+                                    <h4 class="event-title m-0">Vegatarish koken</h4>
+                                    <span class="event-description m-0">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee</span>
                                 </div>
                             </div>
                             
-                            {# Agenda item 1 #}
-                            <div class="row mb-3">
+                            <!-- Agenda item 2 -->
+                            <div class="row mb-2 mr-1">
                                 <div class="col-3 mt-2 d-flex justify-content-center">
                                     <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
                                 </div>
-                                    
                                 <div class="col-9 pl-0">
                                     <h4 class="event-title m-0">Vegatarish koken</h4>
-                                    <span class="event-description m-0">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<span>
-                                </div>
-                            </div>
-
-                            {# Agenda item 2 #}
-                            <div class="row mb-3">
-                                <div class="col-3 mt-2 d-flex justify-content-center">
-                                    <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
-                                </div>
-                                    
-                                <div class="col-9 pl-0">
-                                    <h4 class="event-title m-0">Vegatarish koken</h4>
-                                    <span class="event-description m-0">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<span>
+                                    <span class="event-description m-0">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee</span>
                                 </div>
                             </div>
                             
-                            {# Agenda item 3 #}
-                            <div class="row mb-3">
+                            <!-- Agenda item 3 -->
+                            <div class="row mb-2 mr-1">
                                 <div class="col-3 mt-2 d-flex justify-content-center">
                                     <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
                                 </div>
-                                    
                                 <div class="col-9 pl-0">
                                     <h4 class="event-title m-0">Vegatarish koken</h4>
-                                    <span class="event-description m-0">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<span>
+                                    <span class="event-description m-0">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee</span>
                                 </div>
                             </div>
-                            
-                            {# Agenda item 4 #}
-                            <div class="row mb-3">
+                        
+                            <!-- Agenda item 4 -->
+                            <div class="row mb-2 mr-1">
                                 <div class="col-3 mt-2 d-flex justify-content-center">
                                     <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
                                 </div>
-                                    
                                 <div class="col-9 pl-0">
                                     <h4 class="event-title m-0">Vegatarish koken</h4>
-                                    <span class="event-description m-0">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<span>
+                                    <span class="event-description m-0">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee</span>
                                 </div>
                             </div>
-
-                            {# Agenda item 5 #}
-                            <div class="row mb-3">
+                        
+                            <!-- Agenda item 5 -->
+                            <div class="row mb-2 mr-1">
                                 <div class="col-3 mt-2 d-flex justify-content-center">
                                     <i class="fa-solid fa-calendar calender-icon" style="color: #feffff;"></i>
                                 </div>
-                                    
                                 <div class="col-9 pl-0">
                                     <h4 class="event-title m-0">Vegatarish koken</h4>
-                                    <span class="event-description m-0 ">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee<span>
+                                    <span class="event-description m-0">Een workshop vegetarisch koken, onder leding van Trientje Hupsakee</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                
+                    
                     {# Login #}
-                    <div class="row login login-container mb-3">
-                        <form method="POST">
-                            <div class="col-12 d-flex justify-content-center mt-2 login-container">
-                                <img class="login-logo" src="assets/img/verrukkulluk-login.png"/>
+                    <form class="row login login-container mb-3" method="POST">
+                        <div class="col-12 d-flex justify-content-center mt-2 login-container">
+                            <img class="login-logo" src="assets/img/verrukkulluk-login.png"/>
+                        </div>
+
+                        <div class="col-12 mb-2">
+                            <div class="d-flex flex-column align-items-center login-container">
+                                <span class="password-text d-block mb-1">E-mail</span>
+                                <input class="password w-100" type="password" name="password">
                             </div>
-                            <div class="col-12 login-container">
-                                <p class="e-mail-text d-flex justify-content-start my-0 ml-2">E-mail</p>
+                        </div>
+
+                        <div class="col-12 mb-2">
+                            <div class="d-flex flex-column align-items-center login-container">
+                                <span class="password-text d-block mb-1">Wachtwoord</span>
+                                <input class="password w-100" type="password" name="password">
                             </div>
-                            <div class="col-12 d-flex justify-content-center mb-2 mt-1 login-container">
-                                <input type="email" class="e-mail" name="e-mail">
-                            </div>
-                            <div class="col-12 d-flex justify-content-start login-container">
-                                <p class="password-text my-0 ml-2">Wachtwoord</p>
-                            </div>
-                            <div class="col-12 d-flex justify-content-center mb-2 mt-1 login-container">
-                                <input type="password" class="password" name="password">
-                            </div>
-                            <div class="col-12 d-flex justify-content-center align-items-center login-container">
-                                <button type="submit" class="submit">
-                                    <span class="submit-text">Login</span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-center my-3">
+                            <button type="submit" class="submit">
+                                <span class="submit-text">Login</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 
                 {# content #}
-                <div class="col-9 pl-4">
+                <div class="col-9 pl-4 d-flex flex-column justify-content-between">
                     {%  block content %}
                     {%  endblock %}
                 </div>

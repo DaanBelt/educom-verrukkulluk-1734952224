@@ -8,39 +8,41 @@
 {# nu de block content op in de main pagina vullen #}
 {% block content %}
 {# Loop #}
-<div class="row justify-content-around content">
+<div class="row content-container">
     {% for record in data %}
-        <div class="col-5 d-flex flex-column justify-content-between box-shadow mb-3">
-            <div class="row">
-                <div class="col-12 p-0">
-                    <img src="{{ record.dish.photo }}" class="dish-photo"/>
-                </div>
-            </div>
+        <div class="col-5 box-shadow content-container ml-4 my-3 d-flex flex-column justify-content-between">
 
             <div class="row">
-                <div class="col-12">
-                    <h4 class="dish-title">{{ record.dish.title }}</h4>
+                <div class="col-12 px-0">
+                    <img src="{{ record.dish.photo }}" class="dish-photo"/>
+                </div>
+            
+                <div class="col-8 d-flex justify-content-start">
+                    <h4 class="dish-title mt-0">{{ record.dish.title }}</h4>
+                </div>
+
+                <div class="col-4 d-flex justify-content-end">
                     <span class="star" dish-id={{ record.dish.id }} data-value="1">*</span>
                     <span class="star" dish-id={{ record.dish.id }} data-value="2">*</span>
                     <span class="star" dish-id={{ record.dish.id }} data-value="3">*</span>
                     <span class="star" dish-id={{ record.dish.id }} data-value="4">*</span>
                     <span class="star" dish-id={{ record.dish.id }} data-value="5">*</span>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-12">
+                <div class="col-12 d-flex justify-content-start">
                     <p class="record-description">{{ record.dish.description_short }}</p>
                 </div>
             </div>
 
-            <div class="row mb-4 ">
-                <div class="col-5">
-                    <a href="http://localhost:8888/educom-verrukkulluk-1734952224/index.php?dish_id={{record.dish.id}}&action=detail">
+            <div class="row mb-2">
+                <div class="col-5 d-flex flex-column">
+                <div class="smullen-link">
+                    <a class="" href="http://localhost:8888/educom-verrukkulluk-1734952224/index.php?dish_id={{record.dish.id}}&action=detail">
                         <button type="submit" class="smullen-button">
                             <span class="smullen-text">Smullen!</span>
                         </button>
                     </a>
+                </div>
                 </div>
 
                 <div class="col-7 d-flex align-items-center justify-content-end">

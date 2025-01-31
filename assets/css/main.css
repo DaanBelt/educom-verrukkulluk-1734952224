@@ -113,19 +113,25 @@ html, body {
 }
 
 .agenda-logo {
-    width: 50%;
+    max-width: 50%;
 }
 
 .calender-icon {
-    font-size: 25px;
+    font-size: 150%;
 }
 
 .event-title {
-    font-size: 1.5rem;
+    font-size: 170%;
+    
 }
 
 .event-description {
-    font-size: 0.7rem;
+    font-size: 60%;
+}
+
+.grow-container {
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .login {
@@ -137,15 +143,16 @@ html, body {
 }
 
 .e-mail, .password {
-    width: 90%;
     height: 1.25rem;
     border: 0;
     border-radius: 5%;
+    width: 70%;
 }
 
 .e-mail-text, .password-text {
     font-size: 0.5rem;
     color: white;
+    width: 100%;
 }
 
 .submit {
@@ -157,6 +164,8 @@ html, body {
     border-radius: 20% / 80%;
     padding: 0;
     line-height: 1;
+    max-width: 50%;
+    max-width: 150px;
 }
 
 .submit-text {
@@ -164,18 +173,26 @@ html, body {
     font-size: 1.5rem;
     padding: 0;
     margin: 0;
-    line-height: 1;
-    justify-content: center;
-    align-items: center;
 }   
+
+.login-container {
+    flex-grow: 1;
+    flex-shrink: 1; 
+    min-width: 80%;
+}
+/* .login-group {
+    margin-bottom: 1rem;
+    width: 100%;
+} */
 
 /* Content section homepage */
 .box-shadow {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.content {
-    /* height: 800px; */
+.content-container {
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .dish-photo {
@@ -213,6 +230,11 @@ html, body {
     align-items: center;
 }
 
+.smullen-link {
+    max-width: 120px;
+    color: none;
+}
+
 .dish-info {
     font-size: 0.8rem;
     padding-left: 1%;
@@ -221,16 +243,6 @@ html, body {
 
 .dish-content {
     border: solid 1px;
-}
-
-.agenda-container {
-    flex-grow: 1;
-    flex-shrink: 1;
-}
-
-.login-container {
-    flex-grow: 1;
-    flex-shrink: 1; 
 }
 
 /* Content section detailpage */
@@ -251,7 +263,7 @@ html, body {
     width: 50px;
 }
 
-.starhover:hover {
+.star:hover {
     color: #F00;
 }
 
@@ -267,6 +279,7 @@ html, body {
 
 .detail-description {
     font-size: 12px;
+    overflow: scroll;
 }
 
 .list-button {
